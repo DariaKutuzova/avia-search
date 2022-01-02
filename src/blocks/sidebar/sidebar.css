@@ -1,0 +1,6 @@
+.sidebar {
+    max-width: 250px;
+    background-color: rgba(217, 217, 217, 1);
+    min-height: 640px;
+    color: rgba(66, 86, 104, 1);
+}

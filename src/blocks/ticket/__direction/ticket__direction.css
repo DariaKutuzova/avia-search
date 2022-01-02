@@ -1,0 +1,9 @@
+.ticket__direction {
+    border-bottom: 1px solid rgb(229, 229, 229);
+    max-width: 640px;
+    min-height: 40px;
+    display: flex;
+    margin: 0 10px;
+    align-items: center;
+
+}

@@ -1,0 +1,7 @@
+.ticket__header-price {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-around;
+    margin-right: 10px;
+
+}

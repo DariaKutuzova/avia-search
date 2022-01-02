@@ -1,0 +1,6 @@
+.ticket__carrier {
+    min-height: 40px;
+    display: flex;
+    margin: 10px 10px 0;
+    align-items: center;
+}

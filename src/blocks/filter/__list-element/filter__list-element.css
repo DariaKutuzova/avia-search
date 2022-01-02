@@ -1,0 +1,6 @@
+.filter__list-element {
+    max-width: 250px;
+    list-style-type: none;
+    display: flex;
+    flex-direction: row;
+}

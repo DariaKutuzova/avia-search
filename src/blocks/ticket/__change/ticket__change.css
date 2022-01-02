@@ -1,0 +1,13 @@
+.ticket__change {
+    position: absolute;
+    top: 81px;
+    max-width: 20%;
+    overflow: auto;
+    margin: auto;
+    left: 0;
+    right: 0;
+    color: rgb(255, 142, 29);
+    background-color: white;
+    /*opacity: 0.5;*/
+    text-align: center;
+}

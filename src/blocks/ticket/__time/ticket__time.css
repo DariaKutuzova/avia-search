@@ -1,0 +1,9 @@
+.ticket__time {
+    border-bottom: 1px solid rgb(162, 162, 162);
+    max-width: 640px;
+    min-height: 50px;
+    display: flex;
+    margin: 0 10px;
+    align-items: center;
+    justify-content: space-between;
+}

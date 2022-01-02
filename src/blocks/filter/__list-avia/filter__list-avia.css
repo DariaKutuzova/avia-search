@@ -1,0 +1,9 @@
+.filter__list-avia {
+    margin: 0;
+    /*font-size: 42px;*/
+    /*line-height: 48px;*/
+    text-overflow: ellipsis;
+    max-width: 130px;
+    overflow: hidden;
+    white-space: nowrap;
+}

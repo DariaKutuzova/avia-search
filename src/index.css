@@ -1,0 +1,50 @@
+/*body {*/
+/*  margin: 0;*/
+/*  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen',*/
+/*    'Ubuntu', 'Cantarell', 'Fira Sans', 'Droid Sans', 'Helvetica Neue',*/
+/*    sans-serif;*/
+/*  -webkit-font-smoothing: antialiased;*/
+/*  -moz-osx-font-smoothing: grayscale;*/
+/*}*/
+
+/*code {*/
+/*  font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New',*/
+/*    monospace;*/
+/*}*/
+
+@import url(./blocks/main/main.css);
+@import url(./blocks/page/page.css);
+@import url(./blocks/page/__item/page__item.css);
+@import url(./blocks/sidebar/sidebar.css);
+@import url(./blocks/sort/sort.css);
+@import url(./blocks/sort/__header/sort__header.css);
+@import url(blocks/sort/__list/sort__list.css);
+@import url(./blocks/sort/__list-element/sort__list-element.css);
+
+@import url(./blocks/filter/filter.css);
+@import url(./blocks/filter/__header/filter__header.css);
+@import url(blocks/filter/__list/filter__list.css);
+@import url(./blocks/filter/__list-avia/filter__list-avia.css);
+@import url(./blocks/filter/__list-element/filter__list-element.css);
+@import url(./blocks/filter/__list-input/filter__list-input.css);
+@import url(./blocks/filter/__list-from/filter__list-from.css);
+@import url(./blocks/filter/__transfer/filter__transfer.css);
+
+@import url(./blocks/ticket/ticket.css);
+@import url(./blocks/ticket/__header/ticket__header.css);
+@import url(./blocks/ticket/__header-price/ticket__header-price.css);
+@import url(./blocks/ticket/__header-price-value/ticket__header-price-value.css);
+@import url(./blocks/ticket/__header-description/ticket__header-description.css);
+@import url(./blocks/ticket/__header-logo/ticket__header-logo.css);
+@import url(./blocks/ticket/__direction/ticket__direction.css);
+@import url(./blocks/ticket/__time/ticket__time.css);
+@import url(./blocks/ticket/__body/ticket__body.css);
+@import url(./blocks/ticket/__change/ticket__change.css);
+@import url(./blocks/ticket/__carrier/ticket__carrier.css);
+@import url(./blocks/ticket/__button/ticket__button.css);
+
+
+
+
+
+

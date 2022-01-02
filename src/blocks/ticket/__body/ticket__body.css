@@ -1,0 +1,8 @@
+.ticket__body {
+    position: relative;
+    border-bottom: 2px solid rgba(0, 131, 195, 1);
+}
+
+.ticket__body:nth-of-type(3) {
+    border-bottom: 0;
+}
