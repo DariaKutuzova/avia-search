@@ -35,6 +35,7 @@ function Ticket({flight}) {
     //Время прилета
     const arrivalDateFrom = transferFrom ? flight.flight.legs[0].segments[1].arrivalDate
         : flight.flight.legs[0].segments[0].arrivalDate;
+    const durationFrom = flight.flight.legs[0].duration;
 
     //Отлет для второй части билета
     //Аэропорты
@@ -52,6 +53,7 @@ function Ticket({flight}) {
     //Время прилета
     const arrivalDateBack = transferBack ? flight.flight.legs[1].segments[1].arrivalDate
         : flight.flight.legs[1].segments[0].arrivalDate;
+    const durationBack = flight.flight.legs[1].duration;
 
     function convertDate(inputFormat) {
         const date = new Date(inputFormat)
@@ -65,6 +67,12 @@ function Ticket({flight}) {
         const time = new Date(inputFormat)
             .toLocaleString('ru', {hour: '2-digit', minute: '2-digit'});
         return time;
+    }
+
+    function formatDuration(durationInMinutes) {
+        let hours = Math.trunc(durationInMinutes / 60);
+        let minutes = durationInMinutes % 60;
+        return hours + ' ч ' + minutes + ' мин';
     }
 
     //Логотипы авиакомпаний
@@ -122,12 +130,16 @@ function Ticket({flight}) {
             <div className="ticket__body">
                 <div className="ticket__direction">
                     {`${departureCityFrom.caption}, 
-                    ${departureAirportFrom.caption} 
-                    (${departureAirportFrom.uid}) `}
-                    &rarr;
+                    ${departureAirportFrom.caption} `}
+                    <span className="ticket__direction-uid">
+                        {` (${departureAirportFrom.uid}) `}
+                        &rarr;
+                    </span>
                     {` ${arrivalCityFrom == undefined ? '' : arrivalCityFrom.caption}, 
-                    ${arrivalAirportCityFrom.caption} 
-                    (${arrivalAirportCityFrom.uid})`}
+                    ${arrivalAirportCityFrom.caption} `}
+                    <span className="ticket__direction-uid">
+                        {` (${arrivalAirportCityFrom.uid})`}
+                    </span>
                 </div>
                 <div className="ticket__time">
                     <div className="ticket__time-departure">
@@ -138,7 +150,13 @@ function Ticket({flight}) {
                         {convertDate(departureDateFrom)}
                     </span>
                     </div>
-                    <span className="ticket__time-general">Общее время в пути</span>
+                    <div className="ticket__time-general">
+                        <div className="ticket__watch">
+                        </div>
+                        <span>
+                            {formatDuration(durationFrom)}
+                        </span>
+                    </div>
                     <div className="ticket__time-arrival">
                         <span className="ticket__time-date">
                         {convertDate(arrivalDateFrom)}
@@ -154,17 +172,41 @@ function Ticket({flight}) {
             <div className="ticket__body">
                 <p className="ticket__direction">
                     {`${departureCityBack == undefined ? '' : departureCityBack.caption}, 
-                    ${departureAirportBack.caption} 
-                    (${departureAirportBack.uid}) `}
-                    &rarr;
+                    ${departureAirportBack.caption}`}
+                    <span className="ticket__direction-uid">
+                        {` (${departureAirportBack.uid}) `}
+                        &rarr;
+                    </span>
                     {` ${arrivalCityBack == undefined ? '' : arrivalCityBack.caption}, 
-                    ${arrivalAirportCityBack.caption} 
-                    (${arrivalAirportCityBack.uid})`}
+                    ${arrivalAirportCityBack.caption}`}
+                    <span className="ticket__direction-uid">
+                        {` (${arrivalAirportCityBack.uid})`}
+                    </span>
                 </p>
                 <div className="ticket__time">
-                    <span className="ticket__time-departure">{departureDateBack}</span>
-                    <span className="ticket__time-general">Общее время в пути</span>
-                    <span className="ticket__time-arrival">{arrivalDateBack}</span>
+                    <div className="ticket__time-departure">
+                    <span className="ticket__time-hour">
+                        {`${convertTime(departureDateBack)} `}
+                        </span>
+                        <span className="ticket__time-date">
+                        {convertDate(departureDateBack)}
+                    </span>
+                    </div>
+                    <div className="ticket__time-general">
+                        <div className="ticket__watch">
+                        </div>
+                        <span>
+                        {formatDuration(durationBack)}
+                    </span>
+                    </div>
+                    <div className="ticket__time-arrival">
+                        <span className="ticket__time-date">
+                        {convertDate(arrivalDateBack)}
+                    </span>
+                        <span className="ticket__time-hour">
+                        {` ${convertTime(arrivalDateBack)}`}
+                        </span>
+                    </div>
                 </div>
                 <p className={`ticket__change ${transferBack ? '' : 'ticket__change_hidden'}`}>1 пересадка</p>
                 <p className="ticket__carrier">
@@ -174,7 +216,8 @@ function Ticket({flight}) {
             <button className="ticket__button">Выбрать</button>
 
         </div>
-    );
+    )
+        ;
 }
 
 export default Ticket;

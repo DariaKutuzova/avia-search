@@ -1,0 +1,6 @@
+.ticket__time-general {
+    font-size: 20px;
+    display: flex;
+    flex-direction: row;
+}
+
