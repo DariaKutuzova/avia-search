@@ -12,60 +12,100 @@ import lot from '../images/lot.png';
 import {useState} from 'react';
 
 function Ticket({flight}) {
-    
-    let transferFrom = flight.flight.legs[0].segments.length>1;
-    let transferBack = flight.flight.legs[1].segments.length>1;
 
-    const airline = flight.flight.legs[0].segments[0].airline.caption;
+    let transferFrom = flight.flight.legs[0].segments.length > 1;
+    let transferBack = flight.flight.legs[1].segments.length > 1;
+
+    const airlineFrom = flight.flight.legs[0].segments[0].airline.caption;
+    const airlineBack = flight.flight.legs[1].segments[0].airline.caption;
 
     //Отлет для первой части билета
+    //Аэропорты
     const departureCityFrom = flight.flight.legs[0].segments[0].departureCity;
     const departureAirportFrom = flight.flight.legs[0].segments[0].departureAirport;
+    //Время отлета
     const departureDateFrom = flight.flight.legs[0].segments[0].departureDate;
+
     //Прилет для первой части билета
+    //Аэропорты
     const arrivalCityFrom = transferFrom ? flight.flight.legs[0].segments[1].arrivalCity
         : flight.flight.legs[0].segments[0].arrivalCity;
     const arrivalAirportCityFrom = transferFrom ? flight.flight.legs[0].segments[1].arrivalAirport
         : flight.flight.legs[0].segments[0].arrivalAirport;
+    //Время прилета
     const arrivalDateFrom = transferFrom ? flight.flight.legs[0].segments[1].arrivalDate
         : flight.flight.legs[0].segments[0].arrivalDate;
 
     //Отлет для второй части билета
+    //Аэропорты
     const departureCityBack = flight.flight.legs[1].segments[0].departureCity;
     const departureAirportBack = flight.flight.legs[1].segments[0].departureAirport;
+    //Время отлета
     const departureDateBack = flight.flight.legs[1].segments[0].departureDate;
+
     //Прилет для второй части билета
+    //Аэропорты
     const arrivalCityBack = transferBack ? flight.flight.legs[1].segments[1].arrivalCity
         : flight.flight.legs[1].segments[0].arrivalCity;
     const arrivalAirportCityBack = transferBack ? flight.flight.legs[1].segments[1].arrivalAirport
         : flight.flight.legs[1].segments[0].arrivalAirport;
+    //Время прилета
     const arrivalDateBack = transferBack ? flight.flight.legs[1].segments[1].arrivalDate
         : flight.flight.legs[1].segments[0].arrivalDate;
 
+    function convertDate(inputFormat) {
+        const date = new Date(inputFormat)
+            .toLocaleString('ru', {day: '2-digit', month: 'short'});
+        const weekday = new Date(inputFormat)
+            .toLocaleString('ru', {weekday: 'short'});
+        return [date, weekday].join(' ');
+    }
 
+    function convertTime(inputFormat) {
+        const time = new Date(inputFormat)
+            .toLocaleString('ru', {hour: '2-digit', minute: '2-digit'});
+        return time;
+    }
+
+    //Логотипы авиакомпаний
     function whatsAirline() {
-        if (airline == 'Air France') {
-            return AirFrance
-        } else if (airline == 'Аэрофлот - российские авиалинии') {
-            return aeroflot
-        } else if (airline == 'KLM') {
-            return klm
-        } else if (airline == 'TURK HAVA YOLLARI A.O.') {
-            return turkish
-        } else if (airline == 'Finnair Oyj') {
-            return finnair
-        } else if (airline == 'Air Baltic Corporation A/S') {
-            return baltic
-        } else if (airline == 'Alitalia Societa Aerea Italiana') {
-            return alitalia
-        } else if (airline == 'Pegasus Hava Tasimaciligi A.S.') {
-            return pegas
-        } else if (airline == 'Austrian Airlines') {
-            return austrian
-        } else if (airline == 'SWISS International Air Lines Ltd') {
-            return swiss
-        } else if (airline == 'LOT Polish Airlines') {
-            return lot
+        switch (airlineFrom) {
+            case 'Air France':
+                return AirFrance;
+                break;
+            case 'Аэрофлот - российские авиалинии':
+                return aeroflot;
+                break;
+            case 'KLM':
+                return klm;
+                break;
+            case 'TURK HAVA YOLLARI A.O.':
+                return turkish;
+                break;
+            case 'Finnair Oyj':
+                return finnair;
+                break;
+            case 'Air Baltic Corporation A/S':
+                return baltic;
+                break;
+            case 'Alitalia Societa Aerea Italiana':
+                return alitalia;
+                break;
+            case 'Pegasus Hava Tasimaciligi A.S.':
+                return pegas;
+                break;
+            case 'Austrian Airlines':
+                return austrian;
+                break;
+            case 'SWISS International Air Lines Ltd':
+                return swiss;
+                break;
+            case 'LOT Polish Airlines':
+                return lot;
+                break;
+            default:
+                return aeroflot;
+                break;
         }
     }
 
@@ -85,25 +125,39 @@ function Ticket({flight}) {
                     ${departureAirportFrom.caption} 
                     (${departureAirportFrom.uid}) `}
                     &rarr;
-                    {` ${ arrivalCityFrom==undefined ? '' : arrivalCityFrom.caption}, 
+                    {` ${arrivalCityFrom == undefined ? '' : arrivalCityFrom.caption}, 
                     ${arrivalAirportCityFrom.caption} 
                     (${arrivalAirportCityFrom.uid})`}
                 </div>
                 <div className="ticket__time">
-                    <span className="ticket__time-departure">{departureDateFrom}</span>
+                    <div className="ticket__time-departure">
+                    <span className="ticket__time-hour">
+                        {`${convertTime(departureDateFrom)} `}
+                        </span>
+                        <span className="ticket__time-date">
+                        {convertDate(departureDateFrom)}
+                    </span>
+                    </div>
                     <span className="ticket__time-general">Общее время в пути</span>
-                    <span className="ticket__time-arrival">{arrivalDateFrom}</span>
+                    <div className="ticket__time-arrival">
+                        <span className="ticket__time-date">
+                        {convertDate(arrivalDateFrom)}
+                    </span>
+                        <span className="ticket__time-hour">
+                        {` ${convertTime(arrivalDateFrom)}`}
+                        </span>
+                    </div>
                 </div>
                 <p className={`ticket__change ${transferFrom ? '' : 'ticket__change_hidden'}`}>1 пересадка</p>
-                <p className="ticket__carrier">Рейс выполняет: {airline}</p>
+                <p className="ticket__carrier">Рейс выполняет: {airlineFrom}</p>
             </div>
             <div className="ticket__body">
                 <p className="ticket__direction">
-                    {`${departureCityBack==undefined ? '' : departureCityBack.caption}, 
+                    {`${departureCityBack == undefined ? '' : departureCityBack.caption}, 
                     ${departureAirportBack.caption} 
                     (${departureAirportBack.uid}) `}
                     &rarr;
-                    {` ${ arrivalCityBack==undefined ? '' : arrivalCityBack.caption}, 
+                    {` ${arrivalCityBack == undefined ? '' : arrivalCityBack.caption}, 
                     ${arrivalAirportCityBack.caption} 
                     (${arrivalAirportCityBack.uid})`}
                 </p>
@@ -114,7 +168,7 @@ function Ticket({flight}) {
                 </div>
                 <p className={`ticket__change ${transferBack ? '' : 'ticket__change_hidden'}`}>1 пересадка</p>
                 <p className="ticket__carrier">
-                    Рейс выполняет: {flight.flight.legs[1].segments[0].airline.caption}
+                    Рейс выполняет: {airlineBack}
                 </p>
             </div>
             <button className="ticket__button">Выбрать</button>
