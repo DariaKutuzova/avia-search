@@ -53,7 +53,7 @@ function Filter() {
                                className="filter__list-label filter__list-avia">- LOT Polish Airlines
                         </label>
                         <p className="filter__list-from">
-                            от 29999 р.
+                             от 29999 р.
                         </p>
                     </li>
                     <li className="filter__list-element">

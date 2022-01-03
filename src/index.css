@@ -31,6 +31,7 @@
 @import url(./blocks/filter/__transfer/filter__transfer.css);
 
 @import url(./blocks/ticket/ticket.css);
+@import url(./blocks/tickets/tickets.css);
 @import url(./blocks/ticket/__header/ticket__header.css);
 @import url(./blocks/ticket/__header-price/ticket__header-price.css);
 @import url(./blocks/ticket/__header-price-value/ticket__header-price-value.css);
