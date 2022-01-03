@@ -1,3 +1,6 @@
 .ticket__header-logo {
     margin-left: 10px;
+    max-width: 100px;
+    max-height: 40px;
+    overflow: hidden;
 }
