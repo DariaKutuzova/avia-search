@@ -78,8 +78,6 @@ function App() {
     }
 
     function applyFilterAirline(flights) {
-        console.log("filter with state:")
-        console.log(checkedAirlines)
         let filteredArr = [];
         if (checkedAirlines.filterLot === false && checkedAirlines.filterAeroflot === false) {
             return flights;
@@ -102,8 +100,6 @@ function App() {
     }
 
     function applyFilterPrice(flights) {
-        console.log("filter with state:")
-        console.log(inputValues)
         let filteredArr = [];
         if (inputValues.filterFrom === '' && inputValues.filterTo === '') {
             return flights;
