@@ -7,77 +7,127 @@ let allFlights = [];
 
 function App() {
 
-
-    const [flights, setFlights] = useState([]);
-    // const [sort, setIsSort] = useState('ascending');
-    // const [filterTransfer, setIsFilterTransfer] = useState('');
-    // const [filterPrice, setIsFilterPrice] = useState(false);
-    // const [filterAirlines, setIsFilterAirlines] = useState('');
+    const [checkedTransfer, setCheckedTransfer] = useState({filterOneTransfer: false, filterNoTransfer: false});
+    const [inputValues, setInputValues] = useState({filterFrom: '', filterTo: ''});
+    const [checkedAirlines, setCheckedAirlines] = useState({filterLot: false, filterAeroflot: false});
+    const [sort, setSort] = useState('ascending');
+    const [slice, setSlice] = useState(2);
 
 
     useEffect(() => {
         api.getFlights()
             .then((allTickets) => {
-                console.log(allTickets);
                 allFlights = allTickets;
-                // setFlights(allTickets.slice(0, 2));
+
                 sortFlights('ascending');
+                filterTransfer({filterOneTransfer: false, filterNoTransfer: false});
             })
             .catch((err) => {
                 console.log(`${err}`);
             });
     }, []);
 
-
+    //Сортировка
     function sortFlights(sortValue) {
-        // let sortedFlights;
+        setSort(sortValue);
+    }
+
+    function applySort(flights) {
+        // console.log("sort with state " + sort)
         //цена возрастает
-        if (sortValue == 'ascending') {
-            console.log(sortValue);
-            setFlights(() => {
-                return allFlights.slice().sort((a, b) => (parseInt(a.flight.price.total.amount)
-                    - parseInt(b.flight.price.total.amount)))
-            });
+        if (sort === 'ascending') {
+            return flights.sort((a, b) => (parseInt(a.flight.price.total.amount)
+                - parseInt(b.flight.price.total.amount)))
         }
         //цена убывает
-        else if (sortValue == 'descending') {
-            console.log(sortValue);
-            setFlights(() => {
-                return allFlights.slice().sort((a, b) => (parseInt(b.flight.price.total.amount)
-                    - parseInt(a.flight.price.total.amount)))
-            });
+        else if (sort === 'descending') {
+            return flights.sort((a, b) => (parseInt(b.flight.price.total.amount)
+                - parseInt(a.flight.price.total.amount)))
         }
         //по времени пути
         else {
-            console.log(sortValue);
-            setFlights(() => {
-                return allFlights.slice().sort((a, b) => (parseInt(a.flight.legs[0].duration)
-                    - parseInt(b.flight.legs[0].duration)))
-            });
+            return flights.sort((a, b) => (parseInt(a.flight.legs[0].duration)
+                - parseInt(b.flight.legs[0].duration)))
         }
-        console.log()
     }
 
-    // function updateValue(event) {
-    //     const value = event.target.value;
-    //     console.log(value);
-    //
-    //     setFlights(() => {
-    //         return {
-    //             sortValue: value
-    //         }
-    //     });
-    //
-    //     sortFlights();
-    // }
+    //Фильтрация
+    function filterTransfer({filterOneTransfer, filterNoTransfer}) {
+        setCheckedTransfer({filterOneTransfer, filterNoTransfer})
+    }
 
-    console.log(flights)
+    function applyFilterTransfer(flights) {
+        // console.log("filter with state:")
+        // console.log(checkedTransfer)
+        let filteredArr = [];
+        if (checkedTransfer.filterOneTransfer === false && checkedTransfer.filterNoTransfer === false) {
+            return flights;
+        }
+        if (checkedTransfer.filterOneTransfer) {
+            filteredArr = flights.filter(item => (item.flight.legs[0].segments.length > 1) ||
+                    (item.flight.legs[1].segments.length > 1))
+        }
+        if (checkedTransfer.filterNoTransfer) {
+            filteredArr = filteredArr.concat(flights.filter(item => ((item.flight.legs[0].segments.length <= 1) ||
+                    (item.flight.legs[1].segments.length <= 1)) && (!filteredArr.includes(item))))
+        }
+        flights = filteredArr
+        return flights;
+    }
+
+    function filterAirline({filterLot, filterAeroflot}) {
+        setCheckedTransfer({filterLot, filterAeroflot})
+    }
+    function applyFilterAirline(flights) {
+        console.log("filter with state:")
+        console.log(checkedAirlines)
+        let filteredArr = [];
+        if (checkedAirlines.filterLot === false && checkedAirlines.filterAeroflot === false) {
+            return flights;
+        }
+        if (checkedAirlines.filterLot) {
+            filteredArr = flights.filter(item => (item.flight.legs[0].segments.length > 1) ||
+                (item.flight.legs[1].segments.length > 1))
+        }
+        if (checkedAirlines.filterAeroflot) {
+            filteredArr = filteredArr.concat(flights.filter(item => ((item.flight.legs[0].segments.length <= 1) ||
+                (item.flight.legs[1].segments.length <= 1)) && (!filteredArr.includes(item))))
+        }
+        flights = filteredArr
+        return flights;
+    }
+
+    function applySlice(flights) {
+        // console.log("slicing with state " + slice)
+        return flights.slice(0, slice);
+    }
+
+    function applyAll() {
+        // console.log("render, preparing flights");
+        // console.log(allFlights);
+        let flightsCopy = allFlights.slice()
+        flightsCopy = applyFilterTransfer(flightsCopy)
+        flightsCopy = applyFilterAirline(flightsCopy)
+        flightsCopy = applySort(flightsCopy)
+        flightsCopy = applySlice(flightsCopy)
+        return flightsCopy;
+    }
+
+    let flights = applyAll()
+
+    // console.log("flights for render:")
+    // console.log(flights)
+
     return (
         <div className="page">
             <header className="header page__item"/>
             <Main
                 flights={flights}
-                onSort={sortFlights}/>
+                onSort={sortFlights}
+                onCheckboxTransfer={filterTransfer}
+                onFilterPrice={filterAirline}
+                // onCheckboxAirline={}
+            />
             <footer/>
         </div>
     );

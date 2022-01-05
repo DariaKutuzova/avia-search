@@ -1,13 +1,17 @@
 import Sidebar from "./Sidebar";
 import Ticket from "./Ticket";
 
-function Main({flights, onSort}) {
+function Main({flights, onSort, onCheckboxTransfer, onFilterPrice, onCheckboxAirline}) {
+
 
     return (
         <main>
             <section aria-label="Билеты" className="main page__item">
                 <Sidebar
-                onSort={onSort}/>
+                onSort={onSort}
+                onCheckboxTransfer={onCheckboxTransfer}
+                onFilterPrice={onFilterPrice}
+                onCheckboxAirline={onCheckboxAirline}/>
                 <div className="tickets">
                 {flights.map((flight) => (
                         <Ticket flight={flight}

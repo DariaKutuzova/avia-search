@@ -2,17 +2,18 @@ import {useState} from 'react';
 
 function Filter({onCheckboxTransfer, onFilterPrice, onCheckboxAirline}) {
 
-    const [checkedTransfer, setCheckedTransfer] = useState(false);
-    const [checkedNoTransfer, setCheckedNoTransfer] = useState(false);
+    const [checkedTransfer, setCheckedTransfer] = useState({filterOneTransfer: false, filterNoTransfer: false});
     const [inputValues, setInputValues] = useState({filterFrom: '', filterTo: ''});
     const [checkedAirlines, setCheckedAirlines] = useState({filterLot: false, filterAeroflot: false});
 
-    function changeCheckboxTransfer() {
-        setCheckedTransfer(!checkedTransfer);
-    }
-
-    function changeCheckboxNoTransfer() {
-        setCheckedNoTransfer(!checkedNoTransfer);
+    function changeCheckboxTransfer(e) {
+        let newState = {
+            ...checkedTransfer,
+            [e.target.name]: e.target.checked
+        };
+        console.log(newState);
+        setCheckedTransfer(newState);
+        onCheckboxTransfer(newState)
     }
 
     function changeCheckboxAirlines(e) {
@@ -22,23 +23,26 @@ function Filter({onCheckboxTransfer, onFilterPrice, onCheckboxAirline}) {
         };
         console.log(newState);
         setCheckedAirlines(newState);
-    }
-
-    function handleSubmit(e) {
-        e.preventDefault();
-        onCheckboxTransfer({
-            filterOneTransfer: checkedTransfer,
-            filterNoTransfer: checkedNoTransfer
-        })
-        onFilterPrice({
-            filterFrom: inputValues.filterFrom,
-            filterTo: inputValues.filterTo,
-        });
         onCheckboxAirline({
             filterLot: checkedAirlines.filterLot,
             filterAeroflot: checkedAirlines.filterAeroflot
         })
     }
+
+    // function handleSubmit() {
+    //     onCheckboxTransfer({
+    //         filterOneTransfer: checkedTransfer,
+    //         filterNoTransfer: checkedNoTransfer
+    //     })
+    //     onFilterPrice({
+    //         filterFrom: inputValues.filterFrom,
+    //         filterTo: inputValues.filterTo,
+    //     });
+    //     onCheckboxAirline({
+    //         filterLot: checkedAirlines.filterLot,
+    //         filterAeroflot: checkedAirlines.filterAeroflot
+    //     })
+    // }
 
 
     function checkInputValue(e) {
@@ -48,29 +52,37 @@ function Filter({onCheckboxTransfer, onFilterPrice, onCheckboxAirline}) {
         };
         console.log(newState);
         setInputValues(newState);
+        onFilterPrice({
+            filterFrom: inputValues.filterFrom,
+            filterTo: inputValues.filterTo,
+        });
     }
 
     return (
-        <form className="filter"
-              onSubmit={handleSubmit}>
+        <form className="filter">
             <div className="filter__change">
                 <h2 className="filter__header">Фильтровать</h2>
                 <ul className="filter__list">
                     <li className="filter__list-element">
                         <input type="checkbox" id="one-transfer"
-                               name="filterOneTransfer" value="one-transfer"
+                               name="filterOneTransfer" value={checkedTransfer}
                                className="filter__list-button"
-                               checked={checkedTransfer}
-                               onChange={changeCheckboxTransfer}/>
+                               checked={checkedTransfer.filterOneTransfer}
+                               onChange={changeCheckboxTransfer}
+                               // onClick={handleSubmit}
+                        />
                         <label htmlFor="one-transfer"
                                className="filter__list-label">- 1 пересадка</label>
                     </li>
                     <li className="filter__list-element">
                         <input type="checkbox" id="no-transfer"
-                               name="filterNoTransfer" value="no-transfer"
+                               name="filterNoTransfer"
+                            // value={checkedNoTransfer}
                                className="filter__list-button"
-                               checked={checkedNoTransfer}
-                               onChange={changeCheckboxNoTransfer}/>
+                               checked={checkedTransfer.filterNoTransfer}
+                               onChange={changeCheckboxTransfer}
+                               // onClick={handleSubmit}
+                        />
                         <label htmlFor="no-transfer"
                                className="filter__list-label">- без пересадок</label>
                     </li>
@@ -83,11 +95,14 @@ function Filter({onCheckboxTransfer, onFilterPrice, onCheckboxAirline}) {
                         <label htmlFor="descending"
                                className="filter__list-label">От </label>
                         <input type="number" id="from"
-                               name="filterFrom" value={inputValues.filterFrom}
+                               name="filterFrom"
+                            // value={inputValues.filterFrom}
                                className="filter__list-input"
                                placeholder="0"
                                maxLength="7"
-                               onChange={checkInputValue}/>
+                               onChange={checkInputValue}
+                               // onClick={handleSubmit}
+                        />
                     </li>
                     <li className="filter__list-element">
                         <label htmlFor="descending"
@@ -97,7 +112,9 @@ function Filter({onCheckboxTransfer, onFilterPrice, onCheckboxAirline}) {
                                className="filter__list-input"
                                placeholder="10000"
                                maxLength="7"
-                               onChange={checkInputValue}/>
+                               onChange={checkInputValue}
+                               // onClick={handleSubmit}
+                        />
                     </li>
                 </ul>
             </div>
@@ -107,10 +124,12 @@ function Filter({onCheckboxTransfer, onFilterPrice, onCheckboxAirline}) {
                     <li className="filter__list-element">
                         <input type="checkbox" id="lot"
                                name="filterLot"
-                               // value={checkedAirlines.filter_lot}
+                            // value={checkedAirlines.filter_lot}
                                className="filter__list-button"
                                checked={checkedAirlines.filterLot}
-                               onChange={changeCheckboxAirlines}/>
+                               onChange={changeCheckboxAirlines}
+                               // onClick={handleSubmit}
+                        />
                         <label htmlFor="lot"
                                className="filter__list-label filter__list-avia">- LOT Polish Airlines
                         </label>
@@ -121,10 +140,11 @@ function Filter({onCheckboxTransfer, onFilterPrice, onCheckboxAirline}) {
                     <li className="filter__list-element">
                         <input type="checkbox" id="aeroflot"
                                name="filterAeroflot"
-                               // value={checkedAirlines.filter_aeroflot}
+                            // value={checkedAirlines.filter_aeroflot}
                                className="filter__list-button"
                                checked={checkedAirlines.filterAeroflot}
                                onChange={changeCheckboxAirlines}
+                               // onClick={handleSubmit}
                         />
                         <label htmlFor="aeroflot"
                                className="filter__list-label filter__list-avia">- Аэрофлот - российские авиалинии
