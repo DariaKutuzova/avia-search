@@ -1,4 +1,11 @@
-export const BASE_URL = 'http://localhost:8000'
+// для локального запуска
+export const API_URL = 'http://localhost:8000/result'
+// для запуска на gh-pages
+// (node ./node_modules/gh-pages/bin/gh-pages.js -d build)
+// export const API_URL = '/avia-search/flights.json'
+
+
+// export const API_URL = 'http://localhost:8000/result'
 
 function handleResponse(res) {
     if (res.ok) {
@@ -8,7 +15,7 @@ function handleResponse(res) {
 }
 
 export function getFlights() {
-    return fetch(`${BASE_URL}/result`, {
+    return fetch(`${API_URL}`, {
         method: 'GET',
         headers: {
             'Accept': 'application/json',

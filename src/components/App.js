@@ -34,7 +34,6 @@ function App() {
     }
 
     function applySort(flights) {
-        // console.log("sort with state " + sort)
         //цена возрастает
         if (sort === 'ascending') {
             return flights.sort((a, b) => (parseInt(a.flight.price.total.amount)
@@ -58,8 +57,6 @@ function App() {
     }
 
     function applyFilterTransfer(flights) {
-        // console.log("filter with state:")
-        // console.log(checkedTransfer)
         let filteredArr = [];
         if (checkedTransfer.filterOneTransfer === false && checkedTransfer.filterNoTransfer === false) {
             return flights;
@@ -110,28 +107,23 @@ function App() {
         let filteredArr = [];
         if (inputValues.filterFrom === '' && inputValues.filterTo === '') {
             return flights;
-        }
-        if (inputValues.filterFrom) {
-            filteredArr = flights.filter(item => (((item.flight.legs[0].segments[0].airline.caption) ||
-                (item.flight.legs[1].segments[0].airline.caption)) === 'LOT Polish Airlines'))
-        }
-        if (inputValues.filterTo) {
-            filteredArr = filteredArr.concat(flights.filter(item => (((item.flight.legs[0].segments[0].airline.caption)
-                    || (item.flight.legs[1].segments[0].airline.caption)) === 'Аэрофлот - российские авиалинии')
-                && (!filteredArr.includes(item))))
+        } else {
+            filteredArr = flights.filter(item => (parseInt(item.flight.price.total.amount) >= (inputValues.filterFrom || 0))
+            && (parseInt(item.flight.price.total.amount) <= (inputValues.filterTo || 1000000)))
         }
         flights = filteredArr
         return flights;
     }
 
     function applySlice(flights) {
-        // console.log("slicing with state " + slice)
         return flights.slice(0, slice);
     }
 
+    function addFlights() {
+        setSlice(slice+2)
+    }
+
     function applyAll() {
-        // console.log("render, preparing flights");
-        // console.log(allFlights);
         let flightsCopy = allFlights.slice()
         flightsCopy = applyFilterTransfer(flightsCopy)
         flightsCopy = applyFilterAirline(flightsCopy)
@@ -143,9 +135,6 @@ function App() {
 
     let flights = applyAll()
 
-    // console.log("flights for render:")
-    // console.log(flights)
-
     return (
         <div className="page">
             <header className="header page__item"/>
@@ -155,6 +144,7 @@ function App() {
                 onCheckboxTransfer={filterTransfer}
                 onFilterPrice={filterPrice}
                 onCheckboxAirline={filterAirline}
+                onAddFlights={addFlights}
             />
             <footer/>
         </div>

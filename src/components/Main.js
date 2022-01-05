@@ -1,7 +1,7 @@
 import Sidebar from "./Sidebar";
 import Ticket from "./Ticket";
 
-function Main({flights, onSort, onCheckboxTransfer, onFilterPrice, onCheckboxAirline}) {
+function Main({flights, onSort, onCheckboxTransfer, onFilterPrice, onCheckboxAirline, onAddFlights}) {
 
 
     return (
@@ -18,7 +18,9 @@ function Main({flights, onSort, onCheckboxTransfer, onFilterPrice, onCheckboxAir
                               key={flight.flightToken}/>
                     )
                 )}
-                    <button className="tickets__more-button">Показать еще</button>
+                    <button className="tickets__more-button"
+                    type='button'
+                    onClick={onAddFlights}>Показать еще</button>
                 </div>
             </section>
         </main>
