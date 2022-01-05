@@ -23,10 +23,7 @@ function Filter({onCheckboxTransfer, onFilterPrice, onCheckboxAirline}) {
         };
         console.log(newState);
         setCheckedAirlines(newState);
-        onCheckboxAirline({
-            filterLot: checkedAirlines.filterLot,
-            filterAeroflot: checkedAirlines.filterAeroflot
-        })
+        onCheckboxAirline(newState)
     }
 
     // function handleSubmit() {
@@ -52,10 +49,7 @@ function Filter({onCheckboxTransfer, onFilterPrice, onCheckboxAirline}) {
         };
         console.log(newState);
         setInputValues(newState);
-        onFilterPrice({
-            filterFrom: inputValues.filterFrom,
-            filterTo: inputValues.filterTo,
-        });
+        onFilterPrice(newState);
     }
 
     return (

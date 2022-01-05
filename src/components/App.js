@@ -21,6 +21,7 @@ function App() {
 
                 sortFlights('ascending');
                 filterTransfer({filterOneTransfer: false, filterNoTransfer: false});
+                filterAirline({filterLot: false, filterAeroflot: false})
             })
             .catch((err) => {
                 console.log(`${err}`);
@@ -65,19 +66,20 @@ function App() {
         }
         if (checkedTransfer.filterOneTransfer) {
             filteredArr = flights.filter(item => (item.flight.legs[0].segments.length > 1) ||
-                    (item.flight.legs[1].segments.length > 1))
+                (item.flight.legs[1].segments.length > 1))
         }
         if (checkedTransfer.filterNoTransfer) {
             filteredArr = filteredArr.concat(flights.filter(item => ((item.flight.legs[0].segments.length <= 1) ||
-                    (item.flight.legs[1].segments.length <= 1)) && (!filteredArr.includes(item))))
+                (item.flight.legs[1].segments.length <= 1)) && (!filteredArr.includes(item))))
         }
         flights = filteredArr
         return flights;
     }
 
     function filterAirline({filterLot, filterAeroflot}) {
-        setCheckedTransfer({filterLot, filterAeroflot})
+        setCheckedAirlines({filterLot, filterAeroflot})
     }
+
     function applyFilterAirline(flights) {
         console.log("filter with state:")
         console.log(checkedAirlines)
@@ -86,12 +88,37 @@ function App() {
             return flights;
         }
         if (checkedAirlines.filterLot) {
-            filteredArr = flights.filter(item => (item.flight.legs[0].segments.length > 1) ||
-                (item.flight.legs[1].segments.length > 1))
+            filteredArr = flights.filter(item => (((item.flight.legs[0].segments[0].airline.caption) ||
+                (item.flight.legs[1].segments[0].airline.caption)) === 'LOT Polish Airlines'))
         }
         if (checkedAirlines.filterAeroflot) {
-            filteredArr = filteredArr.concat(flights.filter(item => ((item.flight.legs[0].segments.length <= 1) ||
-                (item.flight.legs[1].segments.length <= 1)) && (!filteredArr.includes(item))))
+            filteredArr = filteredArr.concat(flights.filter(item => (((item.flight.legs[0].segments[0].airline.caption)
+                    || (item.flight.legs[1].segments[0].airline.caption)) === 'Аэрофлот - российские авиалинии')
+                && (!filteredArr.includes(item))))
+        }
+        flights = filteredArr
+        return flights;
+    }
+
+    function filterPrice({filterFrom, filterTo}) {
+        setInputValues({filterFrom, filterTo})
+    }
+
+    function applyFilterPrice(flights) {
+        console.log("filter with state:")
+        console.log(inputValues)
+        let filteredArr = [];
+        if (inputValues.filterFrom === '' && inputValues.filterTo === '') {
+            return flights;
+        }
+        if (inputValues.filterFrom) {
+            filteredArr = flights.filter(item => (((item.flight.legs[0].segments[0].airline.caption) ||
+                (item.flight.legs[1].segments[0].airline.caption)) === 'LOT Polish Airlines'))
+        }
+        if (inputValues.filterTo) {
+            filteredArr = filteredArr.concat(flights.filter(item => (((item.flight.legs[0].segments[0].airline.caption)
+                    || (item.flight.legs[1].segments[0].airline.caption)) === 'Аэрофлот - российские авиалинии')
+                && (!filteredArr.includes(item))))
         }
         flights = filteredArr
         return flights;
@@ -108,6 +135,7 @@ function App() {
         let flightsCopy = allFlights.slice()
         flightsCopy = applyFilterTransfer(flightsCopy)
         flightsCopy = applyFilterAirline(flightsCopy)
+        flightsCopy = applyFilterPrice(flightsCopy)
         flightsCopy = applySort(flightsCopy)
         flightsCopy = applySlice(flightsCopy)
         return flightsCopy;
@@ -125,8 +153,8 @@ function App() {
                 flights={flights}
                 onSort={sortFlights}
                 onCheckboxTransfer={filterTransfer}
-                onFilterPrice={filterAirline}
-                // onCheckboxAirline={}
+                onFilterPrice={filterPrice}
+                onCheckboxAirline={filterAirline}
             />
             <footer/>
         </div>
