@@ -11,7 +11,6 @@ function Filter({onCheckboxTransfer, onFilterPrice, onCheckboxAirline}) {
             ...checkedTransfer,
             [e.target.name]: e.target.checked
         };
-        console.log(newState);
         setCheckedTransfer(newState);
         onCheckboxTransfer(newState)
     }
@@ -21,33 +20,15 @@ function Filter({onCheckboxTransfer, onFilterPrice, onCheckboxAirline}) {
             ...checkedAirlines,
             [e.target.name]: e.target.checked
         };
-        console.log(newState);
         setCheckedAirlines(newState);
         onCheckboxAirline(newState)
     }
-
-    // function handleSubmit() {
-    //     onCheckboxTransfer({
-    //         filterOneTransfer: checkedTransfer,
-    //         filterNoTransfer: checkedNoTransfer
-    //     })
-    //     onFilterPrice({
-    //         filterFrom: inputValues.filterFrom,
-    //         filterTo: inputValues.filterTo,
-    //     });
-    //     onCheckboxAirline({
-    //         filterLot: checkedAirlines.filterLot,
-    //         filterAeroflot: checkedAirlines.filterAeroflot
-    //     })
-    // }
-
 
     function checkInputValue(e) {
         let newState = {
             ...inputValues,
             [e.target.name]: e.target.value
         };
-        console.log(newState);
         setInputValues(newState);
         onFilterPrice(newState);
     }
