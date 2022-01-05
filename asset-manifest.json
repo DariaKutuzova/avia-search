@@ -1,7 +1,7 @@
 {
   "files": {
     "main.css": "/avia-search/static/css/main.0cc45103.css",
-    "main.js": "/avia-search/static/js/main.f4b2e6c2.js",
+    "main.js": "/avia-search/static/js/main.93c85769.js",
     "static/js/787.0560cd5e.chunk.js": "/avia-search/static/js/787.0560cd5e.chunk.js",
     "static/media/turkish.png": "/avia-search/static/media/turkish.8f3d04cc819c6381a0d0.png",
     "static/media/austrian.png": "/avia-search/static/media/austrian.de5d21004e1f4a555238.png",
@@ -17,11 +17,11 @@
     "static/media/watch.PNG": "/avia-search/static/media/watch.755fe4f032570588f2ee.PNG",
     "index.html": "/avia-search/index.html",
     "main.0cc45103.css.map": "/avia-search/static/css/main.0cc45103.css.map",
-    "main.f4b2e6c2.js.map": "/avia-search/static/js/main.f4b2e6c2.js.map",
+    "main.93c85769.js.map": "/avia-search/static/js/main.93c85769.js.map",
     "787.0560cd5e.chunk.js.map": "/avia-search/static/js/787.0560cd5e.chunk.js.map"
   },
   "entrypoints": [
     "static/css/main.0cc45103.css",
-    "static/js/main.f4b2e6c2.js"
+    "static/js/main.93c85769.js"
   ]
 }
