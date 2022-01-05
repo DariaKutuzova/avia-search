@@ -1,0 +1,27 @@
+{
+  "files": {
+    "main.css": "/avia-search/static/css/main.0cc45103.css",
+    "main.js": "/avia-search/static/js/main.eb158486.js",
+    "static/js/787.0560cd5e.chunk.js": "/avia-search/static/js/787.0560cd5e.chunk.js",
+    "static/media/turkish.png": "/avia-search/static/media/turkish.8f3d04cc819c6381a0d0.png",
+    "static/media/austrian.png": "/avia-search/static/media/austrian.de5d21004e1f4a555238.png",
+    "static/media/klm.jpg": "/avia-search/static/media/klm.4c48f531cf79e3e99f53.jpg",
+    "static/media/pegasus-airlines.png": "/avia-search/static/media/pegasus-airlines.39aa42c5e9557851174e.png",
+    "static/media/logo-swiss-international-air-lines.png": "/avia-search/static/media/logo-swiss-international-air-lines.56f72aa42eed0d522a6a.png",
+    "static/media/lot.png": "/avia-search/static/media/lot.2e8034bc0346d1fa64f2.png",
+    "static/media/aeroflot.png": "/avia-search/static/media/aeroflot.e5ed436d9c16a5c8ba3b.png",
+    "static/media/finnair.png": "/avia-search/static/media/finnair.3a112dc24b628e63cfda.png",
+    "static/media/AirFrance.png": "/avia-search/static/media/AirFrance.5e6f4e31d1d613663726.png",
+    "static/media/alitalia.png": "/avia-search/static/media/alitalia.ac6c426330c4cae70226.png",
+    "static/media/logo-airbaltic.png": "/avia-search/static/media/logo-airbaltic.93fffe6b4c544c704e0f.png",
+    "static/media/watch.PNG": "/avia-search/static/media/watch.755fe4f032570588f2ee.PNG",
+    "index.html": "/avia-search/index.html",
+    "main.0cc45103.css.map": "/avia-search/static/css/main.0cc45103.css.map",
+    "main.eb158486.js.map": "/avia-search/static/js/main.eb158486.js.map",
+    "787.0560cd5e.chunk.js.map": "/avia-search/static/js/787.0560cd5e.chunk.js.map"
+  },
+  "entrypoints": [
+    "static/css/main.0cc45103.css",
+    "static/js/main.eb158486.js"
+  ]
+}
