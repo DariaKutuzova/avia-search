@@ -1,11 +1,12 @@
 import Sort from './Sort'
 import Filter from './Filter'
 
-function Sidebar() {
+function Sidebar({onSort}) {
 
     return (
         <div className="sidebar">
-            <Sort/>
+            <Sort
+            onSort={onSort}/>
             <Filter/>
         </div>
     );

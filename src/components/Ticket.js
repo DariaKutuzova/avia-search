@@ -19,6 +19,8 @@ function Ticket({flight}) {
     const airlineFrom = flight.flight.legs[0].segments[0].airline.caption;
     const airlineBack = flight.flight.legs[1].segments[0].airline.caption;
 
+    const price = flight.flight.price.total.amount;
+
     //Отлет для первой части билета
     //Аэропорты
     const departureCityFrom = flight.flight.legs[0].segments[0].departureCity;
@@ -123,7 +125,7 @@ function Ticket({flight}) {
                 <img src={whatsAirline()} alt="Логотип авиакомпании" className="ticket__header-logo"/>
                 <div className="ticket__header-price">
                     <span
-                        className="ticket__header-price-value">{flight.flight.price.total.amount} &#x20bd;</span>
+                        className="ticket__header-price-value">{price} &#x20bd;</span>
                     <span className="ticket__header-description">Стоимость для одного взрослого пассажира</span>
                 </div>
             </div>
